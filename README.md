@@ -206,6 +206,12 @@ Docker mounts the host directory into the container's filesystem at runtime.
 This mapping is direct and live, meaning the container doesn't store its own separate copy of the directory—it directly accesses the host's directory.
    -v /home/ubuntu/varada/elasticsearch8/elasticsearch/config:/usr/share/elasticsearch/config
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+This is our server machine and elastic and kibana are running here,  the opentelemtry agent is running on the client machine, so we need to send the 
+
+http_ca.crt   file in the client system in the folder so that we can use it in opentelemtry configuration with all the permissions.
 
 
 
