@@ -78,7 +78,6 @@ This tell curl to use the copied certificate to verify the elasticsearch server.
 
 output:
 
-root@ip-10-132-143-56:/home/ubuntu/elasticsearch# curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200
 {
   "name" : "f7f904d26c1d",
   "cluster_name" : "docker-cluster",
