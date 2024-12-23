@@ -2,37 +2,54 @@
 Installing the Elastic and Kibana with authentication as docker containers
 
 
-docker network create elastic-1 
+docker network create elastic-1  
+
+This will create the user-defined network elastic-1
+
+output:
 
 6399c2ba4c152866ae41ac161acd23ed79874e93a80565faf19555de97424bf3
 
+
+
 docker pull docker.elastic.co/elasticsearch/elasticsearch:8.17.0
+
+This will pull the docker image for elasticsearch 8
+
+
 
 wget https://artifacts.elastic.co/cosign.pub
 cosign verify --key cosign.pub docker.elastic.co/elasticsearch/elasticsearch:8.17.0
+
+Verify the image with the cosign
 
 
 
 docker run --name es01-8 --net elastic-1 -p 9200:9200 -d --restart unless-stopped -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:8.17.0
 
+You will run the docker container for elasticsearch with the image 
+
 
 docker exec -it es01-8 /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
+
+You will get the password for the elastic user
+
+output:
 
 Password for the [elastic] user successfully reset.
 New value: 61GFTVqG3YVZc=ad93Zi
 
 
-docker exec -it es01-8 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
 
 
-eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTcyLjIxLjAuMjo5MjAwIl0sImZnciI6IjZkNTdkZDUxZmQ1ZmM1ZTYzOWM3YTVlNTZiYzRiMW
-FmYzg3NzhmOTgwYzRiNzk1MWFkZGRiMTJhYWU0ZjQ5ZTgiLCJrZXkiOiIxN0RZMUpNQmVUcGxiX3hDNWlsTDo4ZGV0bVp4Q1FMMkNOaGJGUDRxWlBRIn0=
 
+mkdir elasticsearch ---- make the folder in  /home/ubuntu/varada/elasticsearch8/
 
-mkdir elasticsearch
+cd elasticsearch --- get indside the folder
 
-cd elasticsearch
+Now you are in /home/ubuntu/varada/elasticsearch8/elasticsearch directory
 
+Now run these commands:
  
 docker cp es01:/usr/share/elasticsearch/config .
 docker cp es01:/usr/share/elasticsearch/data .
@@ -81,14 +98,31 @@ output:
 
 7d63c44901318946b3ab57068637cd18853d5a076c48e966ddeefb2c508a14bb
 
+
 docker exec -it es01-8 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
 
+This command will generate the enrollment token for Kibana which is use to connect kibana to elasticsearch cluster during initial setup.
 
-eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTcyLjIxLjAuMjo5MjAwIl0sImZnciI6IjZkNTdkZDUxZmQ1ZmM1ZTYzOWM3YTVlNTZiYzRiMWF
-mYzg3NzhmOTgwYzRiNzk1MWFkZGRiMTJhYWU0ZjQ5ZTgiLCJrZXkiOiI1Skt1M1pNQmxyQURuRl9kRThSejo2ZTNobzV4RFM0U0sza0ZrMVFYUVpRIn0=
+output:
+
+eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTcyLjIxLjAuMjo5MjAwIl0sImZnciI6IjZkNTdkZDUxZmQ1ZmM1ZTYzOWM3YTVlNTZiYzRiMW
+FmYzg3NzhmOTgwYzRiNzk1MWFkZGRiMTJhYWU0ZjQ5ZTgiLCJrZXkiOiIxN0RZMUpNQmVUcGxiX3hDNWlsTDo4ZGV0bVp4Q1FMMkNOaGJGUDRxWlBRIn0=
+
+Now open the kibana url in the browser
+
+Paste the enrollment token in the box and authenticate. It will ask for a pin, the pin will be seen on the command line.
 
 
-docker cp kibana-8:/usr/share/kibana/config .
+mkdir kibana ---- make the folder in  /home/ubuntu/varada/elasticsearch8/
+
+cd kibana --- get indside the folder
+
+Now you are in /home/ubuntu/varada/elasticsearch8/kibana directory
+
+Now run these commands:
+
+
+docker cp kibana-8:/usr/share/kibana/config .   
 
 docker cp kibana-8:/usr/share/kibana/data .
 
@@ -96,7 +130,7 @@ docker cp kibana-8:/usr/share/kibana/data .
 
 docker stop es01-8 kibana-8
 
-docker rm es01-8 kibana-8
+docker rm es01-8 kibana-8     
 
 --------------------------------------------------------------------------------------
 
