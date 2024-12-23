@@ -14,7 +14,7 @@ output:
 
 docker pull docker.elastic.co/elasticsearch/elasticsearch:8.17.0
 
-This will pull the docker image for elasticsearch 8
+This will pull the docker image for elasticsearch 8.17.0
 
 
 
@@ -52,16 +52,28 @@ Now you are in /home/ubuntu/varada/elasticsearch8/elasticsearch directory
 Now run these commands:
  
 docker cp es01:/usr/share/elasticsearch/config .
+
 docker cp es01:/usr/share/elasticsearch/data .
 
 
+These two command will copy the config and data directrory to the host system
+
+
 export ELASTIC_PASSWORD="BvpoIGkN50M4ZiCE5Apm"
+
+Set the password in the environment variable , hit it from the command line
 
 
 docker cp es01-8:/usr/share/elasticsearch/config/certs/http_ca.crt .
 
 
+This will copy the http_ca.crt file from the container to the local machine
+
+
 curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200
+
+
+This tell curl to use the copied certificate to verify the elasricsearch server.
 
 
 output:
