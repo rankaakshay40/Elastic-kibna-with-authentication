@@ -56,7 +56,7 @@ docker cp es01:/usr/share/elasticsearch/config .
 docker cp es01:/usr/share/elasticsearch/data .
 
 
-These two command will copy the config and data directrory to the host system
+These two command will copy the config and data directrory for elasticsearch to the host system
 
 
 export ELASTIC_PASSWORD="BvpoIGkN50M4ZiCE5Apm"
@@ -104,7 +104,11 @@ root@ip-10-132-143-56:/home/ubuntu/elasticsearch# curl --cacert http_ca.crt -u e
 
 docker pull docker.elastic.co/kibana/kibana:8.17.0
 
+Pull the kibana image 
+
 docker run --name kibana-8 --net elastic-1 -p 5601:5601 -d docker.elastic.co/kibana/kibana:8.17.0
+
+start the container initially
 
 output:
 
@@ -125,6 +129,7 @@ Now open the kibana url in the browser
 Paste the enrollment token in the box and authenticate. It will ask for a pin, the pin will be seen on the command line.
 
 
+
 mkdir kibana ---- make the folder in  /home/ubuntu/varada/elasticsearch8/
 
 cd kibana --- get indside the folder
@@ -139,10 +144,15 @@ docker cp kibana-8:/usr/share/kibana/config .
 docker cp kibana-8:/usr/share/kibana/data .
 
 
+These two command will copy the config and data directrory for Kibana to the host system
+
 
 docker stop es01-8 kibana-8
 
 docker rm es01-8 kibana-8     
+
+
+Now stop and delete the containers and then map then again start the containers (for volume mapping or bind mount)
 
 --------------------------------------------------------------------------------------
 
