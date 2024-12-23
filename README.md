@@ -119,7 +119,36 @@ docker run --name kibana-8 --net elastic-1 -p 5601:5601 -d -v /home/ubuntu/varad
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
+When you mount a directory from your local machine to a Docker container using the -v option, you create a bind mount. This means that the specified directory on the host is directly linked to the specified directory inside the container. Any changes made in the mounted directory on the host are immediately reflected inside the container, and vice versa.
 
+
+How It Works:
+
+1. Bind Mount in Action:
+   
+In your command:This tells Docker:
+
+The local host directory /home/ubuntu/varada/elasticsearch8/elasticsearch/config is mapped to /usr/share/elasticsearch/config inside the container.
+Any files or subdirectories in the host directory /home/ubuntu/varada/elasticsearch8/elasticsearch/config will appear inside the container at /usr/share/elasticsearch/config.
+
+
+2. Two-Way Sync:
+   
+Changes on the Host:
+
+If you edit or add files in /home/ubuntu/varada/elasticsearch8/elasticsearch/config on the host, those changes are immediately visible in the container's /usr/share/elasticsearch/config.
+
+
+Changes in the Container:
+
+If a process in the container modifies /usr/share/elasticsearch/config, those changes are immediately reflected in the host directory /home/ubuntu/varada/elasticsearch8/elasticsearch/config.
+
+Why This Happens:
+
+Docker mounts the host directory into the container's filesystem at runtime.
+
+This mapping is direct and live, meaning the container doesn't store its own separate copy of the directory—it directly accesses the host's directory.
+   -v /home/ubuntu/varada/elasticsearch8/elasticsearch/config:/usr/share/elasticsearch/config
 
 
 
