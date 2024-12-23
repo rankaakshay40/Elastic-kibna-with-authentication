@@ -213,6 +213,8 @@ This is our server machine and elastic and kibana are running here,  the opentel
 **http_ca.crt**   file in the client system in the folder so that we can use it in opentelemtry configuration with all the permissions.
 
 
+Save the **http_ca.crt** in the **/etc/otelcol-contrib** directory with all permissions
+
 
 
 
