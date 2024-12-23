@@ -12,25 +12,25 @@ output:
 
 
 
-docker pull docker.elastic.co/elasticsearch/elasticsearch:8.17.0
+**docker pull docker.elastic.co/elasticsearch/elasticsearch:8.17.0**
 
 This will pull the docker image for elasticsearch 8.17.0
 
 
 
-wget https://artifacts.elastic.co/cosign.pub
-cosign verify --key cosign.pub docker.elastic.co/elasticsearch/elasticsearch:8.17.0
+**wget https://artifacts.elastic.co/cosign.pub
+cosign verify --key cosign.pub docker.elastic.co/elasticsearch/elasticsearch:8.17.0**
 
 Verify the image with the cosign
 
 
 
-docker run --name es01-8 --net elastic-1 -p 9200:9200 -d --restart unless-stopped -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:8.17.0
+**docker run --name es01-8 --net elastic-1 -p 9200:9200 -d --restart unless-stopped -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:8.17.0**
 
 You will run the docker container for elasticsearch with the image 
 
 
-docker exec -it es01-8 /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
+**docker exec -it es01-8 /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic**
 
 You will get the password for the elastic user
 
@@ -43,37 +43,37 @@ New value: 61GFTVqG3YVZc=ad93Zi
 
 
 
-mkdir elasticsearch ---- make the folder in  /home/ubuntu/varada/elasticsearch8/
+**mkdir elasticsearch** ---- make the folder in  /home/ubuntu/varada/elasticsearch8/
 
-cd elasticsearch --- get indside the folder
+**cd elasticsearch** --- get indside the folder
 
 Now you are in /home/ubuntu/varada/elasticsearch8/elasticsearch directory
 
 Now run these commands:
  
-docker cp es01:/usr/share/elasticsearch/config .
+**docker cp es01:/usr/share/elasticsearch/config .**
 
-docker cp es01:/usr/share/elasticsearch/data .
+**docker cp es01:/usr/share/elasticsearch/data .**
 
 
 These two command will copy the config and data directrory for elasticsearch to the host system
 
 
-export ELASTIC_PASSWORD="BvpoIGkN50M4ZiCE5Apm"
+**export ELASTIC_PASSWORD="BvpoIGkN50M4ZiCE5Apm"**
 
 Set the password in the environment variable , hit it from the command line
 
 
-docker cp es01-8:/usr/share/elasticsearch/config/certs/http_ca.crt .
+**docker cp es01-8:/usr/share/elasticsearch/config/certs/http_ca.crt .**
 
 
 This will copy the http_ca.crt file from the container to the local machine
 
 
-curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200
+**curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200**
 
 
-This tell curl to use the copied certificate to verify the elasricsearch server.
+This tell curl to use the copied certificate to verify the elasticsearch server.
 
 
 output:
@@ -102,11 +102,11 @@ root@ip-10-132-143-56:/home/ubuntu/elasticsearch# curl --cacert http_ca.crt -u e
 
 ------------------------------------------------------------------------
 
-docker pull docker.elastic.co/kibana/kibana:8.17.0
+**docker pull docker.elastic.co/kibana/kibana:8.17.0**
 
 Pull the kibana image 
 
-docker run --name kibana-8 --net elastic-1 -p 5601:5601 -d docker.elastic.co/kibana/kibana:8.17.0
+**docker run --name kibana-8 --net elastic-1 -p 5601:5601 -d docker.elastic.co/kibana/kibana:8.17.0**
 
 start the container initially
 
@@ -115,7 +115,7 @@ output:
 7d63c44901318946b3ab57068637cd18853d5a076c48e966ddeefb2c508a14bb
 
 
-docker exec -it es01-8 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+**docker exec -it es01-8 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana**
 
 This command will generate the enrollment token for Kibana which is use to connect kibana to elasticsearch cluster during initial setup.
 
@@ -130,35 +130,35 @@ Paste the enrollment token in the box and authenticate. It will ask for a pin, t
 
 
 
-mkdir kibana ---- make the folder in  /home/ubuntu/varada/elasticsearch8/
+**mkdir kibana** ---- make the folder in  /home/ubuntu/varada/elasticsearch8/
 
-cd kibana --- get indside the folder
+**cd kibana** --- get indside the folder
 
 Now you are in /home/ubuntu/varada/elasticsearch8/kibana directory
 
 Now run these commands:
 
 
-docker cp kibana-8:/usr/share/kibana/config .   
+**docker cp kibana-8:/usr/share/kibana/config .** 
 
-docker cp kibana-8:/usr/share/kibana/data .
+**docker cp kibana-8:/usr/share/kibana/data .**
 
 
 These two command will copy the config and data directrory for Kibana to the host system
 
 
-docker stop es01-8 kibana-8
+**docker stop es01-8 kibana-8**
 
-docker rm es01-8 kibana-8     
+**docker rm es01-8 kibana-8**    
 
 
 Now stop and delete the containers and then map then again start the containers (for volume mapping or bind mount)
 
 --------------------------------------------------------------------------------------
 
-docker run --name es01-8 --net elastic-1 -p 9200:9200 -d --restart unless-stopped -e "discovery.type=single-node" -v /home/ubuntu/varada/elasticsearch8
+**docker run --name es01-8 --net elastic-1 -p 9200:9200 -d --restart unless-stopped -e "discovery.type=single-node" -v /home/ubuntu/varada/elasticsearch8
 /elasticsearch/config:/usr/share/elasticsearch/config -v /home/ubuntu/varada/elasticsearch8/elasticsearch/data:/usr/share/elasticsearch/data 
-docker.elastic.co/elasticsearch/elasticsearch:8.17.0
+docker.elastic.co/elasticsearch/elasticsearch:8.17.0**
 
 This will start a new container with the name es01-8  with the docker network elastic-1 and maps port 9200 of the host machine to port 9200 in the contianer. It runs the container in a detached mode (container continues to run in the background even after the terminal session ends) configures the container to restart automatically unless it is explicitly stopped by the user and run on the single node. 
 It mounts the host directory (/home/ubuntu/varada/elasticsearch8/elasticsearch/config) to the container directory (/usr/share/elasticsearch/config). The config directory in Elasticsearch contains configuration files. By mounting it, you can customize the Elasticsearch configuration from the host machine.
@@ -166,12 +166,12 @@ The data directory in Elasticsearch stores indices and other persistant data. Th
 
 
 
-curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200
+**curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200**
 
 
 
-docker run --name kibana-8 --net elastic-1 -p 5601:5601 -d -v /home/ubuntu/varada/elasticsearch8/kibana/config:/usr/share/kibana/config -v /home/ubuntu
-/varada/elasticsearch8/kibana/data:/usr/share/kibana/data docker.elastic.co/kibana/kibana:8.17.0
+**docker run --name kibana-8 --net elastic-1 -p 5601:5601 -d -v /home/ubuntu/varada/elasticsearch8/kibana/config:/usr/share/kibana/config -v /home/ubuntu
+/varada/elasticsearch8/kibana/data:/usr/share/kibana/data docker.elastic.co/kibana/kibana:8.17.0**
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
