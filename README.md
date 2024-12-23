@@ -210,7 +210,7 @@ This mapping is direct and live, meaning the container doesn't store its own sep
 
 This is our server machine and elastic and kibana are running here,  the opentelemtry agent is running on the client machine, so we need to send the 
 
-http_ca.crt   file in the client system in the folder so that we can use it in opentelemtry configuration with all the permissions.
+**http_ca.crt**   file in the client system in the folder so that we can use it in opentelemtry configuration with all the permissions.
 
 
 
