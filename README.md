@@ -215,6 +215,11 @@ This is our server machine and elastic and kibana are running here,  the opentel
 
 Save the **http_ca.crt** in the **/etc/otelcol-contrib** directory with all permissions
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Create the index and index pattern in Kibana with the name otel-logs to view the logs.
+
+
 
 
 
