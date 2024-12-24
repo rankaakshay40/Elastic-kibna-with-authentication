@@ -1,16 +1,14 @@
-- # Elastic-kibna-with-authentication
-Installing the Elastic and Kibana with authentication as docker containers
+ # Elastic-kibna-with-authentication
+ Installing the Elastic and Kibana with authentication as docker containers
 
 
-- **docker network create elastic-1**  
+ **docker network create elastic-1**  
 
 This will create the user-defined network elastic-1
 
 output:
 
 6399c2ba4c152866ae41ac161acd23ed79874e93a80565faf19555de97424bf3
-
-
 
 **docker pull docker.elastic.co/elasticsearch/elasticsearch:8.17.0**
 
@@ -37,7 +35,7 @@ You will get the password for the elastic user
 output:
 
 Password for the [elastic] user successfully reset.
-New value: 61GFTVqG3YVZc=ad93Zi
+New value: **61GFTVqG3YVZc=ad93Zi**
 
 
 
