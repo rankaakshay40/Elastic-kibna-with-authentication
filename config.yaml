@@ -44,8 +44,8 @@ exporters:
     user: elastic
     password: "61GFTVqG3YVZc=ad93Zi"
     tls:
-      insecure: false
-      insecure_skip_verify: true
+      insecure: false                                     // insecure: true, it will disables TLS entirely, falling back to http
+      insecure_skip_verify: true          // this will skips certificate validation but keep TLS encyption,  it will keeps https
       ca_file: /etc/otelcol-contrib/http_ca.crt
 
 
