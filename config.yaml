@@ -42,7 +42,7 @@ exporters:
     traces_index: otel-traces
     logs_index: otel-logs
     user: elastic
-    password: "61GFTVqG3YVZc=ad93Zi"
+    password: ${ELASTIC_PASSWORD}                     // put the password here
     tls:
       insecure: false                                     // insecure: true, it will disables TLS entirely, falling back to http
       insecure_skip_verify: true          // this will skips certificate validation but keep TLS encyption,  it will keeps https
